@@ -32,7 +32,8 @@ const MONGODB_URI = process.env.MONGODB_URI
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000,
 })
 .then(() => {
   console.log('Connected to MongoDB Atlas');
