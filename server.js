@@ -30,19 +30,18 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000
 const MONGODB_URI = process.env.MONGODB_URI
 
-mongoose
-  .connect(MONGODB_URI)
-  .then(() => {
-    console.log("Connected to MongoDB")
-    // Only start the server if not in Vercel serverless environment
-    if (process.env.NODE_ENV !== "production") {
-      app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`)
-      })
-    }
-  })
-  .catch((error) => {
-    console.error("MongoDB connection error:", error)
-  })
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => {
+  console.log('Connected to MongoDB Atlas');
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+})
+.catch((err) => {
+  console.error('MongoDB connection error:', err);
+});
 
 export default app
